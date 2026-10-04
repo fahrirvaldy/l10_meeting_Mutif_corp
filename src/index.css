@@ -1,0 +1,733 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #1e293b;
+  --accent: #2563eb;
+  --bg-color: #f8fafc;
+  --card-bg: #ffffff;
+  --text-main: #334155;
+  --text-light: #64748b;
+  --success: #10b981;
+  --danger: #ef4444;
+  --warning: #f59e0b;
+  --border: #e2e8f0;
+  --input-bg: #f1f5f9;
+}
+
+* {
+  box-sizing: border-box;
+  outline: none;
+}
+
+body {
+  font-family: 'Inter', sans-serif;
+  background-color: var(--bg-color);
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  width: 100vw;
+  overflow-x: hidden;
+  overflow-y: auto; /* Allow page scroll */
+  color: var(--text-main);
+  user-select: none;
+  font-size: 16px;
+}
+
+[contenteditable="true"],
+input {
+  user-select: text;
+  cursor: text;
+}
+
+/* --- SLIDE LAYOUT --- */
+.slide {
+  display: none;
+  min-height: 50vh;
+  height: auto;
+  width: 100%;
+  padding: 20px 0;
+  flex-direction: column;
+  background: var(--bg-color);
+  animation: fadeIn 0.3s ease;
+}
+
+.slide.active {
+  display: flex;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* --- CARDS & CONTENT --- */
+.card {
+  background: var(--card-bg);
+  border-radius: 16px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--border);
+  padding: 30px;
+  height: auto;
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+  cursor: default;
+  margin-bottom: 20px;
+}
+
+h1 {
+  font-size: 36px;
+  color: var(--primary);
+  margin: 0 0 8px 0;
+  flex-shrink: 0;
+  letter-spacing: -0.5px;
+  font-weight: 700;
+}
+
+.subtitle {
+  font-size: 20px;
+  color: var(--text-light);
+  margin-bottom: 25px;
+  border-bottom: 2px solid var(--border);
+  padding-bottom: 15px;
+  flex-shrink: 0;
+  font-weight: 500;
+}
+
+h3 {
+  font-size: 20px;
+  margin-bottom: 15px;
+  margin-top: 0;
+  font-weight: 600;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+  flex-grow: 1;
+  overflow: hidden;
+  min-height: 0;
+}
+
+.stacked-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  flex-grow: 1;
+  overflow-y: auto;
+  min-height: 0;
+}
+
+/* --- TABLES --- */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+th {
+  text-align: left;
+  padding: 15px;
+  background: #f1f5f9;
+  color: var(--text-main);
+  font-size: 15px;
+  font-weight: 700;
+  text-transform: uppercase;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  border-bottom: 2px solid #cbd5e1;
+}
+
+td {
+  padding: 14px 15px;
+  border-bottom: 1px solid var(--border);
+  font-size: 16px;
+  vertical-align: middle;
+}
+
+[contenteditable="true"]:hover {
+  background: #f8fafc;
+  outline: 1px dashed #cbd5e1;
+}
+
+[contenteditable="true"]:focus {
+  background: #fff;
+  outline: 2px solid var(--accent);
+  cursor: text;
+}
+
+.input-box {
+  display: block;
+  width: 100%;
+  background: var(--input-bg);
+  border: 1px solid transparent;
+  border-radius: 8px;
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 18px;
+  line-height: 1.5;
+  min-height: 48px;
+  transition: all 0.2s;
+}
+
+.input-box:hover {
+  border-color: #cbd5e1;
+}
+
+.input-box:focus {
+  background: #fff;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+.owner-label {
+  font-size: 13px;
+  color: var(--text-light);
+  display: inline-block;
+  margin-right: 8px;
+  font-weight: 500;
+}
+
+.owner-input {
+  display: inline-block;
+  min-width: 100px;
+  border-bottom: 1px dashed #ccc;
+  padding: 2px 5px;
+  font-size: 14px;
+  color: var(--primary);
+  font-weight: 600;
+}
+
+.status-btn,
+.jenis-btn,
+.outcome-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  user-select: none;
+  width: 110px;
+  text-align: center;
+  border: 1px solid transparent;
+  transition: all 0.2s;
+}
+
+.status-btn.on {
+  background: #dcfce7;
+  color: #166534;
+  border-color: #86efac;
+}
+
+.status-btn.on::before {
+  content: 'ON TRACK';
+}
+
+.status-btn.off {
+  background: #fee2e2;
+  color: #991b1b;
+  border-color: #fca5a5;
+}
+
+.status-btn.off::before {
+  content: 'OFF TRACK';
+}
+
+.jenis-btn.lagging {
+  background: #fee2e2;
+  color: #991b1b;
+  border-color: #fca5a5;
+}
+
+.jenis-btn.lagging::before {
+  content: 'LAGGING';
+}
+
+.jenis-btn.leading {
+  background: #dbeafe;
+  color: #1e40af;
+  border-color: #93c5fd;
+}
+
+.jenis-btn.leading::before {
+  content: 'LEADING';
+}
+
+.jenis-btn.kualitas {
+  background: #fef9c3;
+  color: #854d0e;
+  border-color: #fde047;
+}
+
+.jenis-btn.kualitas::before {
+  content: 'KUALITAS';
+}
+
+.outcome-btn.done {
+  background: #dbeafe;
+  color: #1e40af;
+  border-color: #93c5fd;
+}
+
+.outcome-btn.done::before {
+  content: 'TERCAPAI';
+}
+
+.outcome-btn.not {
+  background: #f1f5f9;
+  color: #64748b;
+  border-color: #cbd5e1;
+}
+
+.outcome-btn.not::before {
+  content: 'BELUM';
+}
+
+.ids-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 25px;
+  flex-grow: 1;
+  min-height: 0;
+}
+
+.ids-col {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  height: auto;
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+}
+
+.ids-col h3 {
+  font-size: 18px;
+  color: var(--accent);
+  margin-top: 0;
+  text-transform: uppercase;
+  flex-shrink: 0;
+  border-bottom: 1px solid #f1f5f9;
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+}
+
+.ids-item {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 10px;
+  padding: 10px;
+  background: #f8fafc;
+  border-radius: 8px;
+  align-items: start;
+}
+
+.ids-checkbox {
+  margin-top: 5px;
+  cursor: pointer;
+  transform: scale(1.2);
+}
+
+.ids-text {
+  flex-grow: 1;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+#ids-notes,
+#ids-solutions {
+  font-size: 16px;
+  line-height: 1.6;
+  padding: 5px;
+}
+
+ol.todo-list {
+  padding-left: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.todo-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  padding: 15px 0;
+  border-bottom: 1px solid var(--border);
+  gap: 20px;
+}
+
+.todo-text-wrapper {
+  flex-grow: 1;
+  width: 100%;
+}
+
+.todo-action {
+  flex-shrink: 0;
+  margin-top: 10px;
+}
+
+.todo-number {
+  font-weight: 800;
+  color: var(--accent);
+  margin-top: 12px;
+  width: 25px;
+  flex-shrink: 0;
+  font-size: 18px;
+}
+
+.rating-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+  margin-top: 30px;
+}
+
+.rating-card {
+  background: #f8fafc;
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  border: 1px solid var(--border);
+}
+
+.rating-card label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: 600;
+  color: var(--text-light);
+}
+
+.rating-input {
+  width: 70px;
+  height: 50px;
+  font-size: 24px;
+  text-align: center;
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  font-weight: 800;
+  color: var(--primary);
+}
+
+.rating-avg {
+  font-size: 80px;
+  font-weight: 800;
+  color: var(--primary);
+  text-align: center;
+  margin-top: 40px;
+}
+
+.add-btn {
+  margin-top: 15px;
+  background: white;
+  border: 2px dashed var(--accent);
+  color: var(--accent);
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  width: 100%;
+  transition: all 0.2s;
+}
+
+.add-btn:hover {
+  background: #eff6ff;
+}
+
+.generating-pdf .nav-controls,
+.generating-pdf .floating-timer,
+.generating-pdf .action-btn,
+.generating-pdf .cloud-status,
+.generating-pdf .add-btn {
+  display: none !important;
+}
+
+.generating-pdf {
+    width: 1920px !important;
+    height: 1080px !important;
+    overflow: hidden !important;
+}
+
+.generating-pdf .slide {
+    width: 1920px !important;
+    height: 1080px !important;
+    padding: 60px 80px !important;
+    display: flex !important; /* Ensure all slides are captured */
+    position: absolute;
+    left: -9999px; /* Hide from view but keep in DOM */
+}
+
+.generating-pdf .slide.active {
+    position: static;
+    left: 0;
+}
+
+.generating-pdf .card {
+    overflow: visible !important;
+    height: auto !important;
+    max-height: none !important;
+}
+
+.generating-pdf *::-webkit-scrollbar {
+    display: none !important;
+}
+
+.generating-pdf .input-box {
+  border: 1px solid #ccc;
+  background: #fff;
+}
+
+/* =========================================
+   MOBILE RESPONSIVE (MAX 768PX)
+   ========================================= */
+@media (max-width: 768px) {
+    /* 1. Reset Padding dan Font Dasar */
+    .slide {
+        padding: 70px 15px 100px 15px !important;
+    }
+    h1 { font-size: 28px !important; }
+    h2 { font-size: 20px !important; }
+    .subtitle { font-size: 16px !important; margin-bottom: 15px !important; }
+    .card { padding: 15px !important; }
+
+    /* 2. Ubah Semua Layout Bersebelahan Menjadi Bertumpuk (Vertical) */
+    .grid-2, .ids-container {
+        grid-template-columns: 1fr !important;
+        gap: 15px !important;
+    }
+    /* Menimpa inline-style grid 1fr 1fr yang ada di JSX */
+    div[style*="grid-template-columns: 1fr 1fr"] {
+        grid-template-columns: 1fr !important;
+        height: auto !important;
+    }
+    
+    /* 3. Penyesuaian Tabel agar bisa digeser (Scroll Horizontal) */
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+    th, td { font-size: 14px !important; padding: 10px !important; }
+    .input-box { font-size: 14px !important; padding: 10px !important; min-height: 40px !important; }
+
+    /* 4. Penyesuaian Tombol Floating (Lebih Kecil & Posisinya Digeser) */
+    .floating-timer {
+        top: 15px !important;
+        right: 15px !important;
+        padding: 6px 12px !important;
+        font-size: 16px !important;
+    }
+    .action-btn {
+        bottom: 20px !important;
+        left: 15px !important;
+        padding: 10px 15px !important;
+        font-size: 12px !important;
+    }
+    .nav-controls {
+        bottom: 20px !important;
+        right: 15px !important;
+        gap: 10px !important;
+    }
+    .nav-btn {
+        width: 45px !important;
+        height: 45px !important;
+        font-size: 18px !important;
+    }
+    .cloud-status {
+        bottom: 70px !important;
+        left: 15px !important;
+        max-width: 200px !important;
+        font-size: 11px !important;
+    }
+
+    /* 5. Penyesuaian Grid Rating di Halaman Akhir */
+    .rating-grid {
+        grid-template-columns: 1fr 1fr !important;
+    }
+    .rating-avg { font-size: 48px !important; margin-top: 20px !important; }
+}
+
+/* Utility class to hide elements visually but keep them in the DOM for scripts */
+.fixed-layout {
+  table-layout: fixed;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  white-space: nowrap; /* prevent wrapping */
+}
+
+/* ======================================================================== */
+/* == STYLING KHUSUS UNTUK EKSPOR PDF (@media print) == */
+/* ======================================================================== */
+@media print {
+  /* -- 1. Tata Letak dan Tipografi -- */
+  @page {
+    size: A4; /* Ukuran halaman standar A4 */
+    margin: 20mm; /* Margin 20mm di semua sisi */
+  }
+
+  body {
+    font-family: 'Inter', 'Arial', sans-serif; /* Font bersih dan modern */
+    background-color: #ffffff; /* Latar belakang putih */
+    color: #000000; /* Teks hitam untuk kontras tinggi */
+  }
+
+  /* Hierarki Visual Font */
+  .pdf-container h1 {
+    font-size: 24pt;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+
+  .pdf-container h2 {
+    font-size: 18pt;
+    font-weight: bold;
+    margin-top: 25px;
+    margin-bottom: 15px;
+  }
+  
+  .pdf-container h3 {
+    font-size: 14pt;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+
+  .pdf-container p, .pdf-container li {
+    font-size: 12pt;
+    line-height: 1.5;
+  }
+
+  /* -- 2. Kebersihan Konten -- */
+  /* Sembunyikan semua elemen di body KECUALI container PDF kita */
+  body * {
+    visibility: hidden;
+  }
+
+  .pdf-container, .pdf-container * {
+    visibility: visible;
+  }
+
+  /* Posisikan container PDF di pojok kiri atas halaman */
+  .pdf-container {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+
+  /* -- 3. Kontrol Halaman -- */
+  
+  /* Pastikan elemen penting tidak terpotong antar halaman */
+  .pdf-container table, .pdf-container img, .pdf-container ul, .pdf-container h2, .pdf-container h3 {
+    page-break-inside: avoid;
+  }
+
+  /* Header yang berulang di setiap halaman */
+  .pdf-header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+  }
+  
+  .pdf-header .logo {
+      height: 30px; /* Ukuran disesuaikan untuk header */
+      padding: 0;
+      margin-right: 15px;
+  }
+
+  .pdf-header h1 {
+      font-size: 16pt; /* Ukuran disesuaikan untuk header */
+      margin: 0;
+  }
+
+
+  /* Footer dengan penomoran halaman */
+  .pdf-footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 10pt;
+    color: #555;
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+  }
+
+  /* Counter untuk penomoran halaman */
+  body {
+    counter-reset: page;
+  }
+  
+  .pdf-footer::after {
+    counter-increment: page;
+    content: "Halaman " counter(page);
+    /* Catatan: CSS tidak bisa secara native membuat format "Halaman X dari Y". 
+       Ini adalah batasan teknis dari CSS. Penomoran "Halaman X" sudah sangat baik. */
+  }
+
+  /* Body content harus diberi padding atas/bawah agar tidak tumpang tindih dengan header/footer */
+  .pdf-body {
+    padding-top: 60px; /* Ruang untuk header */
+    padding-bottom: 40px; /* Ruang untuk footer */
+  }
+
+
+  /* -- 4. Optimalisasi Elemen Visual -- */
+  .pdf-container img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+
+  .data-table th, .data-table td {
+    border: 1px solid #ccc;
+    padding: 8px 12px;
+    text-align: left;
+  }
+
+  .data-table thead {
+    display: table-header-group; /* Judul tabel akan berulang di setiap halaman baru */
+    background-color: #f0f0f0;
+    font-weight: bold;
+  }
+
+  /* -- 5. Fungsionalitas & Aksesibilitas -- */
+  a {
+    color: #0066cc;
+    text-decoration: none;
+  }
+  
+  /* Saat dicetak, tampilkan URL lengkap di sebelah link */
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 9pt;
+    color: #333;
+  }
+}
