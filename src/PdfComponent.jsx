@@ -88,12 +88,13 @@ const PdfComponent = React.forwardRef(({ data }, ref) => {
       {/* KPI Slides */}
       <div className='w-full h-auto bg-white print:bg-transparent'>
         <h2>Scorecard Review</h2>
-        {renderKpiTable(data?.scorecardTitles?.dmsKPI || 'Digital Marketing Supervisor', data?.dmsKPI)}
-        {renderKpiTable(data?.scorecardTitles?.smsKPI || 'Social Media Specialist', data?.smsKPI)}
+        {renderKpiTable(data?.scorecardTitles?.dmlKPI || 'Digital Marketing Lead', data?.dmlKPI)}
+        {renderKpiTable(data?.scorecardTitles?.smKPI || 'Social Media', data?.smKPI)}
         {renderKpiTable(data?.scorecardTitles?.msKPI || 'Marketplace Specialist', data?.msKPI)}
-        {renderKpiTable(data?.scorecardTitles?.maKPI || 'Meta Ads', data?.maKPI)}
-        {renderKpiTable(data?.scorecardTitles?.kasKPI || 'KOL-Affiliate Specialist', data?.kasKPI)}
-        {renderKpiTable(data?.scorecardTitles?.mcKPI  || 'Marketing Campaign', data?.mcKPI)}
+        {renderKpiTable(data?.scorecardTitles?.khlKPI || 'Koordinator Host Live', data?.khlKPI)}
+        {renderKpiTable(data?.scorecardTitles?.pmKPI || 'Performance Marketing', data?.pmKPI)}
+        {renderKpiTable(data?.scorecardTitles?.asKPI || 'Affiliate Specialist', data?.asKPI)}
+        {renderKpiTable(data?.scorecardTitles?.mcpKPI  || 'Marketing Campaign Program', data?.mcpKPI)}
       </div>
 
       {/* Rock Review */}

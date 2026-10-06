@@ -20,16 +20,18 @@ const INITIAL_STATE = {
   meetingDate: "", 
   attendances: [
     { id: 1, name: 'Owner', checked: false },
-    { id: 2, name: 'Digital Marketing Supervisor', checked: false },
-    { id: 3, name: 'Social Media Specialist', checked: false },
+    { id: 2, name: 'Digital Marketing Lead', checked: false },
+    { id: 3, name: 'Social Media', checked: false },
     { id: 4, name: 'Marketplace Specialist', checked: false},
-    { id: 5, name: 'Meta Ads', checked: false},
-    { id: 6, name: 'KOL-Affiliate Specialist', checked: false},
-    { id: 7, name: 'Marketing Campaign', checked: false}
+    { id: 5, name: 'Performance Marketing', checked: false},
+    { id: 6, name: 'Affiliate Specialist', checked: false},
+    { id: 7, name: 'Marketing Campaign Program', checked: false},
+    { id: 8, name: 'integrator', checked: false},
+    { id: 9, name: 'Koordinator Host Live', checked: false}
   ],
   goodNews: { owner: '', integrator: '', team: '' },
-  scorecardTitles: { dgmKPI: 'Digital Marketing Supervisor', smsKPI: 'Social Media Specialist', msKPI: 'Marketplace Specialist', maKPI: 'Meta Ads', kasKPI: 'KOL-Affiliate Specialist', mcKPI: 'Marketing Campaign' },
-  dgmKPI: [], smsKPI: [], msKPI: [], maKPI: [], kasKPI: [], mcKPI: [], 
+  scorecardTitles: { dglKPI: 'Digital Marketing Lead', smKPI: 'Social Media', msKPI: 'Marketplace Specialist', pmKPI: 'Performance Marketing', asKPI: 'Affiliate Specialist', mcpKPI: 'Marketing Campaign Program', khlKPI: 'Koordinator Host Live' },
+  dglKPI: [], smKPI: [], msKPI: [], pmKPI: [], asKPI: [], mcpKPI: [], khlKPI: [], 
   rockReview: [], headlines: { customer: [], internal: [] }, todoList: [],
   idsSession: {
     issues: [],
@@ -281,7 +283,7 @@ export const MeetingProvider = ({ children }) => {
 
     setData(prev => {
       const offTrack = [];
-      const divisiKeys = ['dmsKPI', 'smsKPI', 'msKPI', 'maKPI', 'kasKPI','mcKPI', 'rockReview'];
+      const divisiKeys = ['dmlKPI', 'smKPI', 'msKPI', 'khsKPI', 'pmKPI','asKPI','mcpKPI', 'rockReview'];
       
       divisiKeys.forEach(key => {
         const list = prev[key] || [];
