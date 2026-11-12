@@ -1,0 +1,1422 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Brand */
+  --primary: #1e293b;
+  --accent: #2563eb;
+  --accent-strong: #1d4ed8;
+  --ids: #8b5cf6;
+
+  /* Surfaces */
+  --bg-color: #f8fafc;
+  --card-bg: #ffffff;
+  --text-main: #334155;
+  --text-light: #64748b;
+  --border: #e2e8f0;
+  --input-bg: #f1f5f9;
+
+  /* Semantic */
+  --success: #10b981;
+  --success-strong: #047857;
+  --warning: #f59e0b;
+  --warning-strong: #b45309;
+  --danger: #ef4444;
+  --danger-strong: #b91c1c;
+  --info: #06b6d4;
+
+  /* Elevation & shape */
+  --shadow-card: 0 1px 2px rgba(15, 23, 42, 0.04), 0 8px 24px -12px rgba(15, 23, 42, 0.12);
+  --shadow-raised: 0 2px 4px rgba(15, 23, 42, 0.05), 0 16px 32px -16px rgba(15, 23, 42, 0.18);
+  --radius-card: 12px;
+  --radius-control: 8px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  /* Cegah font-boosting/text autosizing di browser mobile, termasuk di dalam
+     iframe klon html2canvas, agar hasil ekspor identik dengan desktop. */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  font-family: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  background-color: var(--bg-color);
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: auto; /* Allow page scroll */
+  color: var(--text-main);
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+button {
+  font-family: inherit;
+  user-select: none;
+}
+
+[contenteditable="true"],
+input,
+textarea {
+  user-select: text;
+  cursor: text;
+}
+
+::selection {
+  background: rgba(37, 99, 235, 0.18);
+}
+
+/* --- FOCUS VISIBILITY (a11y) --- */
+:where(button, a, input, textarea, select, [tabindex]):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+:where(button, a, input, textarea, select, [tabindex]):focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* --- SLIDE LAYOUT --- */
+.slide {
+  display: none;
+  min-height: 50vh;
+  height: auto;
+  width: 100%;
+  padding: 20px 0;
+  flex-direction: column;
+  background: var(--bg-color);
+  animation: fadeIn 0.24s ease-out;
+}
+
+.slide.active {
+  display: flex;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* --- HEADINGS --- */
+.slide-title {
+  font-size: clamp(1.75rem, 2.6vw, 2.25rem);
+  line-height: 1.15;
+  color: var(--primary);
+  margin: 0;
+  flex-shrink: 0;
+  letter-spacing: -0.025em;
+  font-weight: 800;
+}
+
+h1 {
+  font-size: 36px;
+  color: var(--primary);
+  margin: 0 0 8px 0;
+  flex-shrink: 0;
+  letter-spacing: -0.5px;
+  font-weight: 700;
+}
+
+.subtitle {
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--text-light);
+  margin: 4px 0 0 0;
+  flex-shrink: 0;
+  font-weight: 500;
+}
+
+h3 {
+  font-size: 18px;
+  margin-bottom: 16px;
+  margin-top: 0;
+  font-weight: 700;
+  color: var(--primary);
+  letter-spacing: -0.01em;
+}
+
+.slide-kicker {
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+}
+
+/* --- CARDS & CONTENT --- */
+.card {
+  background: var(--card-bg);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  border: 1px solid var(--border);
+  padding: 32px;
+  height: auto;
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+  cursor: default;
+  margin-bottom: 20px;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  flex-grow: 1;
+  overflow: hidden;
+  min-height: 0;
+}
+
+.stacked-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  flex-grow: 1;
+  overflow-y: auto;
+  min-height: 0;
+}
+
+/* --- TABLES --- */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+th {
+  text-align: left;
+  padding: 12px 16px;
+  background: #f1f5f9;
+  color: var(--text-main);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  border-bottom: 2px solid #cbd5e1;
+  white-space: nowrap;
+}
+
+td {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  font-size: 15px;
+  vertical-align: middle;
+}
+
+tbody tr:last-child td {
+  border-bottom: none;
+}
+
+[contenteditable="true"]:hover {
+  background: #f8fafc;
+  outline: 1px dashed #cbd5e1;
+}
+
+[contenteditable="true"]:focus {
+  background: #fff;
+  outline: 2px solid var(--accent);
+  cursor: text;
+}
+
+.input-box {
+  display: block;
+  width: 100%;
+  background: var(--input-bg);
+  border: 1px solid transparent;
+  border-radius: var(--radius-control);
+  padding: 12px 16px;
+  margin-bottom: 10px;
+  font-size: 16px;
+  line-height: 1.5;
+  min-height: 48px;
+  transition: background-color 0.2s, border-color 0.2s, box-shadow 0.2s;
+}
+
+.input-box:hover {
+  border-color: #cbd5e1;
+}
+
+.input-box:focus {
+  background: #fff;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+}
+
+.owner-label {
+  font-size: 12px;
+  color: var(--text-light);
+  display: inline-block;
+  margin-right: 8px;
+  font-weight: 600;
+}
+
+.owner-input {
+  display: inline-block;
+  min-width: 100px;
+  border-bottom: 1px dashed #ccc;
+  padding: 2px 5px;
+  font-size: 14px;
+  color: var(--primary);
+  font-weight: 600;
+}
+
+/* --- STATUS PILLS --- */
+.status-btn,
+.jenis-btn,
+.outcome-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 12px;
+  border-radius: 9999px;
+  font-size: 11px;
+  line-height: 1;
+  letter-spacing: 0.04em;
+  font-weight: 800;
+  cursor: pointer;
+  user-select: none;
+  min-width: 112px;
+  width: auto;
+  min-height: 36px;
+  text-align: center;
+  border: 1px solid transparent;
+  transition: background-color 0.2s, border-color 0.2s, box-shadow 0.2s, transform 0.15s;
+}
+
+.status-btn:hover,
+.jenis-btn:hover,
+.outcome-btn:hover {
+  box-shadow: 0 0 0 3px rgba(15, 23, 42, 0.05);
+}
+
+.status-btn:active,
+.jenis-btn:active,
+.outcome-btn:active {
+  transform: scale(0.97);
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 9999px;
+  background: currentColor;
+  flex-shrink: 0;
+}
+
+.status-btn.on {
+  background: #dcfce7;
+  color: #166534;
+  border-color: #86efac;
+}
+
+.status-btn.off {
+  background: #fee2e2;
+  color: #991b1b;
+  border-color: #fca5a5;
+}
+
+.jenis-btn.lagging {
+  background: #fee2e2;
+  color: #991b1b;
+  border-color: #fca5a5;
+}
+
+.jenis-btn.leading {
+  background: #dbeafe;
+  color: #1e40af;
+  border-color: #93c5fd;
+}
+
+.jenis-btn.kualitas {
+  background: #fef9c3;
+  color: #854d0e;
+  border-color: #fde047;
+}
+
+.outcome-btn.done {
+  background: #dbeafe;
+  color: #1e40af;
+  border-color: #93c5fd;
+}
+
+.outcome-btn.not {
+  background: #f1f5f9;
+  color: #64748b;
+  border-color: #cbd5e1;
+}
+
+/* --- GENERIC CONTROLS --- */
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  min-width: 44px;
+  min-height: 44px;
+  border-radius: 9999px;
+  transition: background-color 0.2s, color 0.2s, transform 0.15s, box-shadow 0.2s;
+}
+
+.icon-btn:active {
+  transform: scale(0.94);
+}
+
+/* Delete / row actions: visible on touch, subtle on pointer devices */
+.row-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  min-height: 40px;
+  border-radius: var(--radius-control);
+  color: #94a3b8;
+  transition: background-color 0.2s, color 0.2s, opacity 0.2s;
+}
+
+.row-action:hover {
+  background: #fff1f2;
+  color: #e11d48;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .row-action {
+    opacity: 0;
+  }
+
+  .group:hover .row-action,
+  .group:focus-within .row-action,
+  .row-action:focus-visible {
+    opacity: 1;
+  }
+}
+
+/* --- TIMER --- */
+.timer-card {
+  border: 1px solid var(--border);
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: var(--shadow-card);
+  transition: border-color 0.25s, background-color 0.25s, box-shadow 0.25s;
+}
+
+.timer-display {
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+  transition: color 0.25s;
+}
+
+.timer-card.is-warning {
+  border-color: #fcd34d;
+  background: #fffbeb;
+}
+
+.timer-card.is-warning .timer-display {
+  color: #b45309;
+}
+
+.timer-card.is-danger {
+  border-color: #fca5a5;
+  background: #fef2f2;
+  animation: timerPulse 1.8s ease-in-out infinite;
+}
+
+.timer-card.is-danger .timer-display {
+  color: #b91c1c;
+}
+
+@keyframes timerPulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.32);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(239, 68, 68, 0);
+  }
+}
+
+.timer-progress {
+  height: 4px;
+  border-radius: 9999px;
+  background: #e2e8f0;
+  overflow: hidden;
+}
+
+.timer-progress > span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: currentColor;
+  transition: width 1s linear;
+}
+
+/* --- IDS STEPPER --- */
+.stepper {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  overflow-x: auto;
+  padding: 4px;
+  border-radius: 14px;
+  background: #f8fafc;
+  border: 1px solid var(--border);
+  scrollbar-width: none;
+}
+
+.stepper::-webkit-scrollbar {
+  display: none;
+}
+
+.stepper-step {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  padding: 8px 12px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--text-light);
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.stepper-step[data-state="active"] {
+  background: #ffffff;
+  color: var(--ids);
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.08);
+}
+
+.stepper-step[data-state="done"] {
+  color: #6d28d9;
+}
+
+.stepper-index {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 9999px;
+  font-size: 11px;
+  font-weight: 800;
+  background: #e2e8f0;
+  color: #475569;
+  flex-shrink: 0;
+}
+
+.stepper-step[data-state="active"] .stepper-index {
+  background: var(--ids);
+  color: #ffffff;
+}
+
+.stepper-step[data-state="done"] .stepper-index {
+  background: #ede9fe;
+  color: #6d28d9;
+}
+
+.stepper-divider {
+  color: #cbd5e1;
+  flex-shrink: 0;
+  font-size: 10px;
+}
+
+/* Di layar sempit, ringkas stepper agar 4 langkah tetap terlihat tanpa scroll. */
+@media (max-width: 480px) {
+  .stepper {
+    padding: 3px;
+    gap: 2px;
+  }
+
+  .stepper-step {
+    padding: 6px 7px;
+    gap: 5px;
+    font-size: 10px;
+    letter-spacing: 0.01em;
+  }
+
+  .stepper-index {
+    width: 18px;
+    height: 18px;
+    font-size: 10px;
+  }
+
+  .stepper-divider {
+    display: none;
+  }
+}
+
+/* --- IDS LAYOUT --- */
+.ids-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 24px;
+  flex-grow: 1;
+  min-height: 0;
+}
+
+.ids-col {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-card);
+  padding: 24px;
+  height: auto;
+  overflow: visible;
+  display: flex;
+  flex-direction: column;
+}
+
+.ids-col h3 {
+  font-size: 16px;
+  color: var(--accent);
+  margin-top: 0;
+  text-transform: uppercase;
+  flex-shrink: 0;
+  border-bottom: 1px solid #f1f5f9;
+  padding-bottom: 10px;
+  margin-bottom: 16px;
+}
+
+.ids-item {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 10px;
+  padding: 12px;
+  background: #f8fafc;
+  border-radius: var(--radius-control);
+  align-items: start;
+}
+
+.ids-checkbox {
+  margin-top: 5px;
+  cursor: pointer;
+  transform: scale(1.2);
+}
+
+.ids-text {
+  flex-grow: 1;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+#ids-notes,
+#ids-solutions {
+  font-size: 16px;
+  line-height: 1.6;
+  padding: 5px;
+}
+
+ol.todo-list {
+  padding-left: 0;
+  margin: 0;
+  list-style: none;
+}
+
+.todo-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border);
+  gap: 20px;
+}
+
+.todo-text-wrapper {
+  flex-grow: 1;
+  width: 100%;
+}
+
+.todo-action {
+  flex-shrink: 0;
+  margin-top: 10px;
+}
+
+.todo-number {
+  font-weight: 800;
+  color: var(--accent);
+  margin-top: 12px;
+  width: 24px;
+  flex-shrink: 0;
+  font-size: 18px;
+}
+
+/* --- RATING --- */
+.rating-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 16px;
+  margin-top: 24px;
+}
+
+.rating-card {
+  background: #f8fafc;
+  padding: 16px;
+  border-radius: var(--radius-card);
+  text-align: center;
+  border: 1px solid var(--border);
+}
+
+.rating-card label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: 700;
+  color: var(--text-light);
+}
+
+.rating-input {
+  width: 72px;
+  height: 52px;
+  font-size: 24px;
+  text-align: center;
+  border: 2px solid var(--border);
+  border-radius: 10px;
+  font-weight: 800;
+  color: var(--primary);
+}
+
+.rating-avg {
+  font-size: 80px;
+  font-weight: 800;
+  color: var(--primary);
+  text-align: center;
+  margin-top: 40px;
+}
+
+/* --- BUTTONS --- */
+.add-btn {
+  margin-top: 16px;
+  background: white;
+  border: 2px dashed var(--accent);
+  color: var(--accent);
+  padding: 12px 20px;
+  border-radius: var(--radius-control);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  width: 100%;
+  min-height: 44px;
+  transition: background-color 0.2s, border-color 0.2s, color 0.2s;
+}
+
+.add-btn:hover {
+  background: #eff6ff;
+  border-color: var(--accent-strong);
+  color: var(--accent-strong);
+}
+
+.add-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* --- EMPTY STATE --- */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 8px;
+  padding: 32px 20px;
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-card);
+  background: #f8fafc;
+  color: var(--text-light);
+}
+
+.empty-state-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 9999px;
+  background: #e2e8f0;
+  color: #64748b;
+  font-size: 18px;
+  margin-bottom: 4px;
+}
+
+.empty-state-title {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--primary);
+  margin: 0;
+}
+
+.empty-state-desc {
+  font-size: 13px;
+  line-height: 1.5;
+  max-width: 42ch;
+  margin: 0;
+}
+
+/* =========================================
+   IDS ISSUE LIST (RINGKAS & 2 KOLOM)
+   ========================================= */
+.issue-groups {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.issue-group + .issue-group {
+  margin-top: 2px;
+}
+
+.issue-group-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 2px;
+  padding: 3px 10px;
+  border-left: 3px solid #93c5fd;
+  border-radius: 2px;
+  background: #f1f5f9;
+}
+
+.issue-group-header.is-rocks {
+  border-left-color: #a78bfa;
+}
+
+.issue-group-header.is-manual {
+  border-left-color: #cbd5e1;
+}
+
+.issue-group-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin: 0;
+  color: #475569;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.issue-group-count {
+  flex-shrink: 0;
+  color: #94a3b8;
+  font-size: 10px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.issue-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  column-gap: 20px;
+}
+
+.issue-row {
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 3px 8px;
+  border-bottom: 1px solid #eef2f7;
+  transition: background-color 0.15s ease;
+}
+
+.issue-row:hover {
+  background: #f8fafc;
+}
+
+.issue-row.is-selected {
+  background: #eff6ff;
+  border-bottom-color: #bfdbfe;
+}
+
+.issue-row.is-selected:hover {
+  background: #dbeafe;
+}
+
+.issue-row.is-resolved {
+  opacity: 0.6;
+}
+
+.issue-row:hover .issue-text {
+  color: #2563eb;
+}
+
+.issue-row-flags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+
+.issue-text {
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  word-break: break-word;
+}
+
+.issue-edit {
+  width: 100%;
+  min-height: 24px;
+  resize: none;
+  border: none;
+  background: transparent;
+  padding: 0;
+  line-height: 1.4;
+  outline: none;
+}
+
+.issue-row-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+@media (min-width: 768px) {
+  .issue-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .issue-row {
+    min-height: 36px;
+    padding: 2px 10px;
+  }
+
+  .issue-row .row-action {
+    width: 28px;
+    height: 28px;
+    min-width: 28px;
+    min-height: 28px;
+  }
+}
+
+/* =========================================
+   MOBILE RESPONSIVE (MAX 768PX)
+   ========================================= */
+@media (max-width: 768px) {
+  /* 1. Reset Padding dan Font Dasar */
+  .slide {
+    padding: 8px 0 16px 0 !important;
+  }
+  .slide-title { font-size: 28px !important; }
+  h1 { font-size: 28px !important; }
+  h2 { font-size: 22px !important; }
+  h3 { font-size: 16px !important; }
+  .subtitle { font-size: 14px !important; }
+  .card { padding: 16px !important; margin-bottom: 16px !important; }
+
+  /* 2. Ubah Semua Layout Bersebelahan Menjadi Bertumpuk (Vertical) */
+  .grid-2, .ids-container {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+  /* Menimpa inline-style grid 1fr 1fr yang ada di JSX */
+  div[style*="grid-template-columns: 1fr 1fr"] {
+    grid-template-columns: 1fr !important;
+    height: auto !important;
+  }
+
+  /* 3. Tabel: fallback scroll untuk tabel non-kartu */
+  table { margin-bottom: 16px; }
+  th, td { font-size: 13px !important; padding: 10px 12px !important; }
+  .input-box { font-size: 16px !important; padding: 10px 12px !important; min-height: 44px !important; }
+
+  /* Touch targets */
+  .status-btn, .jenis-btn, .outcome-btn {
+    min-height: 44px;
+    min-width: 104px;
+  }
+  .row-action {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    min-height: 44px;
+    opacity: 1;
+  }
+
+  /* 4. Rating */
+  .rating-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+  .rating-avg { font-size: 48px !important; margin-top: 20px !important; }
+}
+
+/* --- TABLE → CARD (MOBILE) ---
+   DOM tetap sama agar html2canvas / print tidak terpengaruh. */
+@media (max-width: 768px) {
+  table.responsive-table {
+    display: block;
+    width: 100%;
+    min-width: 0 !important;
+    border-collapse: separate;
+    border-spacing: 0;
+    white-space: normal;
+  }
+
+  table.responsive-table thead {
+    display: none;
+  }
+
+  table.responsive-table tbody {
+    display: block;
+    width: 100%;
+  }
+
+  table.responsive-table tr {
+    display: block;
+    position: relative;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-card);
+    background: #ffffff;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+    padding: 12px 14px;
+    margin-bottom: 12px;
+  }
+
+  table.responsive-table tr:last-child {
+    margin-bottom: 0;
+  }
+
+  table.responsive-table td {
+    display: block;
+    width: auto !important;
+    border: none;
+    padding: 6px 0 !important;
+    text-align: left !important;
+    white-space: normal;
+  }
+
+  table.responsive-table td[data-label]:not([data-label=""])::before {
+    content: attr(data-label);
+    display: block;
+    margin-bottom: 2px;
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-light);
+  }
+
+  table.responsive-table td[data-label="Status"] {
+    padding-top: 8px !important;
+  }
+
+  table.responsive-table td.responsive-table-action {
+    display: flex;
+    justify-content: flex-end;
+    padding-top: 8px !important;
+    border-top: 1px dashed var(--border);
+    margin-top: 6px;
+  }
+
+  table.responsive-table td.responsive-table-action::before {
+    content: none;
+  }
+}
+
+/* Elemen yang hanya ingin tampil pada hasil ekspor gambar (html2canvas) */
+.export-only {
+  display: none !important;
+}
+
+/* Utility class to hide elements visually but keep them in the DOM for scripts */
+.fixed-layout {
+  table-layout: fixed;
+}
+
+.visually-hidden {
+  position: absolute !important;
+  height: 1px;
+  width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  white-space: nowrap; /* prevent wrapping */
+}
+
+/* Hormati preferensi pengguna untuk animasi minimal */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ======================================================================== */
+/* == STYLING KHUSUS UNTUK EKSPOR PDF (@media print) == */
+/* ======================================================================== */
+@media print {
+  /* -- 1. Tata Letak dan Tipografi -- */
+  @page {
+    size: A4; /* Ukuran halaman standar A4 */
+    margin: 20mm; /* Margin 20mm di semua sisi */
+  }
+
+  body {
+    font-family: 'Inter', 'Arial', sans-serif; /* Font bersih dan modern */
+    background-color: #ffffff; /* Latar belakang putih */
+    color: #000000; /* Teks hitam untuk kontras tinggi */
+  }
+
+  /* Hierarki Visual Font */
+  .pdf-container h1 {
+    font-size: 24pt;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+
+  .pdf-container h2 {
+    font-size: 18pt;
+    font-weight: bold;
+    margin-top: 25px;
+    margin-bottom: 15px;
+  }
+  
+  .pdf-container h3 {
+    font-size: 14pt;
+    font-weight: bold;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+
+  .pdf-container p, .pdf-container li {
+    font-size: 12pt;
+    line-height: 1.5;
+  }
+
+  /* -- 2. Kebersihan Konten -- */
+  /* Sembunyikan semua elemen di body KECUALI container PDF kita */
+  body * {
+    visibility: hidden;
+  }
+
+  .pdf-container, .pdf-container * {
+    visibility: visible;
+  }
+
+  /* Posisikan container PDF di pojok kiri atas halaman */
+  .pdf-container {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+  }
+
+  /* -- 3. Kontrol Halaman -- */
+  
+  /* Pastikan elemen penting tidak terpotong antar halaman */
+  .pdf-container table, .pdf-container img, .pdf-container ul, .pdf-container h2, .pdf-container h3 {
+    page-break-inside: avoid;
+  }
+
+  /* Header yang berulang di setiap halaman */
+  .pdf-header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 10px;
+  }
+  
+  .pdf-header .logo {
+      height: 30px; /* Ukuran disesuaikan untuk header */
+      padding: 0;
+      margin-right: 15px;
+  }
+
+  .pdf-header h1 {
+      font-size: 16pt; /* Ukuran disesuaikan untuk header */
+      margin: 0;
+  }
+
+
+  /* Footer dengan penomoran halaman */
+  .pdf-footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    font-size: 10pt;
+    color: #555;
+    border-top: 1px solid #ddd;
+    padding-top: 10px;
+  }
+
+  /* Counter untuk penomoran halaman */
+  body {
+    counter-reset: page;
+  }
+  
+  .pdf-footer::after {
+    counter-increment: page;
+    content: "Halaman " counter(page);
+    /* Catatan: CSS tidak bisa secara native membuat format "Halaman X dari Y". 
+       Ini adalah batasan teknis dari CSS. Penomoran "Halaman X" sudah sangat baik. */
+  }
+
+  /* Body content harus diberi padding atas/bawah agar tidak tumpang tindih dengan header/footer */
+  .pdf-body {
+    padding-top: 60px; /* Ruang untuk header */
+    padding-bottom: 40px; /* Ruang untuk footer */
+  }
+
+
+  /* -- 4. Optimalisasi Elemen Visual -- */
+  .pdf-container img {
+    max-width: 100%;
+    height: auto;
+  }
+  
+  .data-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+
+  .data-table th, .data-table td {
+    border: 1px solid #ccc;
+    padding: 8px 12px;
+    text-align: left;
+  }
+
+  .data-table thead {
+    display: table-header-group; /* Judul tabel akan berulang di setiap halaman baru */
+    background-color: #f0f0f0;
+    font-weight: bold;
+  }
+
+  /* -- 4b. Layout PDF Report (PdfComponent) -- */
+  .pdf-page {
+    padding: 0;
+    margin: 0;
+  }
+
+  .pdf-page h2 {
+    page-break-after: avoid;
+    break-after: avoid;
+  }
+
+  .page-break {
+    page-break-before: always;
+    break-before: page;
+  }
+
+  .grid-2-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .grid-2-col .card-pdf {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  .card-pdf {
+    border: 1px solid #e2e8f0;
+    border-radius: 6px;
+    background: #ffffff;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+
+  .card-pdf h4 {
+    font-size: 10pt;
+  }
+
+  .title-page-content {
+    display: flex;
+    min-height: 78vh;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .title-date-label {
+    font-size: 11pt;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #64748b;
+    margin-bottom: 8px;
+  }
+
+  .title-date {
+    font-size: 28pt;
+    font-weight: 800;
+    color: #1e293b;
+  }
+
+  .status-on {
+    background: #ecfdf5;
+    color: #047857;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  .status-off {
+    background: #fef2f2;
+    color: #b91c1c;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  .present {
+    color: #047857;
+  }
+
+  .absent {
+    color: #94a3b8;
+  }
+
+  .checkbox-pdf {
+    display: inline-block;
+    width: 14px;
+  }
+
+  .pdf-why-table th,
+  .pdf-why-table td,
+  .pdf-task-table th,
+  .pdf-task-table td {
+    font-size: 8pt;
+    line-height: 1.35;
+    padding: 4px 6px;
+    vertical-align: top;
+  }
+
+  .pdf-task-table {
+    page-break-inside: auto;
+  }
+
+  /* Tabel panjang (task & cabang) harus boleh terpotong antar halaman;
+     baris individual tetap dijaga agar tidak terbelah. */
+  .pdf-container .pdf-task-table,
+  .pdf-container .pdf-why-table {
+    page-break-inside: auto;
+    break-inside: auto;
+  }
+
+  .pdf-task-table thead {
+    display: table-header-group;
+  }
+
+  .pdf-task-table tr {
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+
+  .report-branch {
+    margin-bottom: 10px;
+  }
+
+  .report-branch-title {
+    margin: 8px 0 4px;
+    font-size: 10pt;
+    font-weight: 800;
+    color: #6d28d9;
+  }
+
+  .report-rootcause {
+    margin-top: 4px;
+    padding: 6px 8px;
+    border-left: 3px solid #8b5cf6;
+    background: #f5f3ff;
+    font-size: 9.5pt;
+  }
+
+  .report-tag {
+    display: inline-block;
+    margin-left: 6px;
+    padding: 1px 4px;
+    border: 1px solid #c4b5fd;
+    border-radius: 3px;
+    font-size: 7.5pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #6d28d9;
+  }
+
+  .ratings-summary {
+    display: flex;
+    align-items: flex-start;
+    gap: 24px;
+  }
+
+  .avg-rating-container {
+    min-width: 140px;
+    padding: 14px;
+    border: 1px solid #e9d5ff;
+    border-radius: 8px;
+    background: #faf5ff;
+    text-align: center;
+  }
+
+  .avg-rating-label {
+    font-size: 9pt;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #6d28d9;
+  }
+
+  .avg-rating-value {
+    font-size: 32pt;
+    font-weight: 800;
+    line-height: 1.1;
+    color: #8b5cf6;
+  }
+
+  .ratings-list {
+    flex: 1;
+  }
+
+  .final-quote {
+    margin-top: 24px;
+    padding: 12px;
+    border-left: 4px solid #8b5cf6;
+    background: #f8fafc;
+    font-style: italic;
+    color: #334155;
+  }
+
+  /* -- 5. Fungsionalitas & Aksesibilitas -- */
+  a {
+    color: #0066cc;
+    text-decoration: none;
+  }
+  
+  /* Saat dicetak, tampilkan URL lengkap di sebelah link */
+  a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    font-size: 9pt;
+    color: #333;
+  }
+}
