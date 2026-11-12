@@ -40,7 +40,7 @@ const normalizeLegacyKeys = (source) => {
   return { ...source, fulfillmentKPI: source.fulfilmentKPI };
 };
 
-const SCORECARD_KEYS = ['ecommerceKPI', 'fulfillmentKPI', 'lkaKPI', 'hcgaKPI', 'creativeKPI'];
+const SCORECARD_KEYS = ['dmlKPI', 'smKPI', 'msKPI', 'khlKPI', 'pmKPI', 'asKPI', 'mcpKPI'];
 
 // Path notulensi mingguan. Dipakai untuk snapshot undo dan reset manual.
 const NOTULENSI_PATHS = [
@@ -630,7 +630,7 @@ export const MeetingProvider = ({ children }) => {
   const populateIDS = () => {
     const prev = dataRef.current;
     const offTrack = [];
-    const divisiKeys = ['ecommerceKPI', 'fulfillmentKPI', 'lkaKPI', 'hcgaKPI', 'creativeKPI', 'rockReview'];
+    const divisiKeys = ['dmlKPI', 'smKPI', 'msKPI', 'khlKPI', 'pmKPI','asKPI','mcpKPI', 'rockReview'];
 
     divisiKeys.forEach(key => {
       const list = prev[key] || [];
@@ -698,11 +698,13 @@ export const MeetingProvider = ({ children }) => {
       toArray(list).map((item) => ({ ...item, real: '', status: 'on' }));
 
     const updates = {
-      ecommerceKPI: resetScorecard(data.ecommerceKPI),
-      fulfillmentKPI: resetScorecard(data.fulfillmentKPI),
-      lkaKPI: resetScorecard(data.lkaKPI),
-      hcgaKPI: resetScorecard(data.hcgaKPI),
-      creativeKPI: resetScorecard(data.creativeKPI),
+      dmlKPI: resetScorecard(data.dmlKPI),
+      smKPI: resetScorecard(data.smKPI),
+      msKPI: resetScorecard(data.msKPI),
+      khlKPI: resetScorecard(data.khlKPI),
+      pmKPI: resetScorecard(data.pmKPI),
+      asKPI: resetScorecard(data.asKPI),
+      mcpKPI: resetScorecard(data.mcpKPI),
       'goodNews.owner': '',
       'goodNews.integrator': '',
       'goodNews.team': '',
